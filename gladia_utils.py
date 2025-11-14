@@ -11,7 +11,7 @@ os.environ["GLADIA_API_KEY"] = st.secrets["GLADIA_API_KEY"]
 def upload_file_to_gladia(file_path:str,api_key:str=os.environ["GLADIA_API_KEY"])-> dict:
     headers = {"x-gladia-key":api_key}
     with open(file_path,'rb') as audio_file:
-        mime = mimetypes.geuss_type(file_path)[0] or 'application/octet-stream'
+        mime = mimetypes.guess_type(file_path)[0] or 'application/octet-stream'
         files = {"audio":(os.path.basename(file_path),audio_file,mime)}
     try:
         response = requests.post(GLADIA_UPLOAD_URL,files=files,headers=headers)
