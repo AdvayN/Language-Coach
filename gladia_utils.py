@@ -8,6 +8,7 @@ GLADIA_TRANSCRIPTION_URL = "https://api.gladia.io/v2/pre-recorded"
 TIME_INTERVAL = 2
 TOTAL_REQUESTS = 10
 os.environ["GLADIA_API_KEY"] = st.secrets["GLADIA_API_KEY"]
+
 def upload_file_to_gladia(file_path:str,api_key:str=os.environ["GLADIA_API_KEY"])-> dict:
     headers = {"x-gladia-key":api_key}
     with open(file_path,'rb') as audio_file:
