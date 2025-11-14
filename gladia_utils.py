@@ -4,7 +4,7 @@ import mimetypes
 import time
 import streamlit as st
 GLADIA_UPLOAD_URL = "https://api.gladia.io/v2/upload"
-GLAIDA_TRANSCRIPTION_URL = "https://api.gladia.io/v2/pre-recorded"
+GLADIA_TRANSCRIPTION_URL = "https://api.gladia.io/v2/pre-recorded"
 TIME_INTERVAL = 2
 TOTAL_REQUESTS = 10
 os.environ["GLADIA_API_KEY"] = st.secrets["GLADIA_API_KEY"]
@@ -32,7 +32,7 @@ def transcribe_audio(audio_url:str,api_key:str=os.environ["GLADIA_API_KEY"],**op
         print(f"error transcribing audio:{e}")
         return {"transcription_id" : None}
 def get_transcription_result(transcription_id:str,api_key:str=os.environ["GLADIA_API_KEY"])->dict:
-    url=f"{GLAIDA_TRANSCRIPTION_URL}/{transcription_id}"
+    url=f"{GLADIA_TRANSCRIPTION_URL}/{transcription_id}"
     headers = {"x-gladia-key":api_key,"Content-type":"application/json"}
     try:
         response = requests.get(url,headers=headers)
