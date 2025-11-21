@@ -10,6 +10,8 @@ REFERENCE_MAPPER = {
     "BLO": ref.BLO,
     "BOOK": None
 }
+
+
 # add the title and emojis
 st.title("🎯 Pronunciation Test")
 
@@ -30,6 +32,7 @@ reference = REFERENCE_MAPPER.get(test_type, None)
 if not reference:
     st.error("Invalid reference type selected!", icon = "🚨")
     st.stop()
+
 if uploaded_file is not None:
     st.write(f"Uploaded file: {uploaded_file.name}")
 

@@ -4,6 +4,8 @@ import pandas as pd
 from unidecode import unidecode
 from typing import List, Tuple, Optional, Dict
 from dataclasses import dataclass
+
+
 LOW_CONF = 0.35  
 VERY_LOW_CONF = 0.20
 CSV_NAME = "evaluation.csv"
@@ -11,20 +13,29 @@ FILLERS = set("""
 uh um hmm like youknow kinda sortof sorry thanks thank you next wait okay ok
 yeah yea nope sorry mam pardon excuseme excuse me please
 """.strip().split())
+
+
 def normalize_text(s: str) -> str:
     s = unidecode(s).lower().strip()
     s = re.sub(r"[^\w'\s]", " ", s)
     s = s.replace("'", "")
     s = re.sub(r"\s+", " ", s).strip()
     return s
+
+
 def tokenize(s: str) -> List[str]:
     return normalize_text(s).split()
+
+
+
 @dataclass
 class Word:
     text: str
     start: Optional[float]
     end: Optional[float]
     prob: Optional[float]
+
+
 def levenshtein_align(ref: List[str], hyp: List[Word]) -> List[Tuple[str, Optional[str], Optional[Word]]]:
     n, m = len(ref), len(hyp)
     dp = [[(0, None)] * (m + 1) for _ in range(n + 1)]
@@ -56,6 +67,8 @@ def levenshtein_align(ref: List[str], hyp: List[Word]) -> List[Tuple[str, Option
             j -= 1
     out.reverse()
     return out
+
+
 def classify_alignment(op: str, ref_tok: Optional[str], hyp: Optional[Word]) -> str:
     if op == 'equal':
         if hyp and hyp.prob is not None and hyp.prob < LOW_CONF:
@@ -72,6 +85,8 @@ def classify_alignment(op: str, ref_tok: Optional[str], hyp: Optional[Word]) -> 
     if op == 'del':
         return "missed"
     return "other"
+
+
 def evaluate_pronounciations(utterances: List[dict], reference: str) -> pd.DataFrame:
     hyp_words: List[Word] = []
     # create Words list
@@ -109,3 +124,4 @@ def evaluate_pronounciations(utterances: List[dict], reference: str) -> pd.DataF
     )
 
     return df
+    

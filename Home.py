@@ -30,7 +30,8 @@ with col1:
     2. **Upload Your Audio** - Speak clearly into your microphone
     3. **Get Instant Feedback** - Receive detailed analysis and improvement tips
     """)
-    with col2:
+
+with col2:
     st.info("""
     **✨ Key Features**
     
@@ -61,7 +62,8 @@ with col4:
     - Speak naturally and clearly
     - Take your time
     """)
-    with col5:
+
+with col5:
     st.markdown("""
     #### 📊 Step 3: Review
     - Check your pronunciation score
@@ -85,6 +87,7 @@ Clear pronunciation is essential for effective communication. Whether you're:
 
 Master Your Pronunciation helps you achieve your pronunciation goals with precision and ease.
 """)
+
 # Footer
 st.markdown("---")
 st.markdown("""
